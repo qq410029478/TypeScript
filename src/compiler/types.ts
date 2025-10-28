@@ -1878,6 +1878,10 @@ export interface VariableDeclaration extends NamedDeclaration, JSDocContainer {
     readonly exclamationToken?: ExclamationToken;  // Optional definite assignment assertion
     readonly type?: TypeNode;                      // Optional type annotation
     readonly initializer?: Expression;             // Optional initializer
+        /* @internal */
+        callerList?: string[];
+        /* @internal */
+        delayInitializerList?: Expression[];        
 }
 
 /** @internal */
@@ -3372,6 +3376,7 @@ export interface Block extends Statement, LocalsContainer {
     readonly kind: SyntaxKind.Block;
     readonly statements: NodeArray<Statement>;
     /** @internal */ multiLine?: boolean;
+        visitedBySorting : number
 }
 
 export interface VariableStatement extends Statement, FlowContainer {
@@ -3545,6 +3550,7 @@ export interface ClassLikeDeclarationBase extends NamedDeclaration, JSDocContain
     readonly typeParameters?: NodeArray<TypeParameterDeclaration>;
     readonly heritageClauses?: NodeArray<HeritageClause>;
     readonly members: NodeArray<ClassElement>;
+        typeNames?: string[];
 }
 
 export interface ClassDeclaration extends ClassLikeDeclarationBase, DeclarationStatement {
@@ -7559,6 +7565,10 @@ export interface CompilerOptions {
     useDefineForClassFields?: boolean;
     /** @internal */ tscBuild?: boolean;
 
+        /* extra options */
+        emitReflection?: boolean;
+        reorderFiles?: boolean;
+                
     [option: string]: CompilerOptionsValue | TsConfigSourceFile | undefined;
 }
 
@@ -8589,6 +8599,8 @@ export interface EmitHost extends ScriptReferenceHost, ModuleSpecifierResolution
     useCaseSensitiveFileNames(): boolean;
     getCurrentDirectory(): string;
 
+        /* @internal */
+        getTypeChecker(): TypeChecker;
     getCommonSourceDirectory(): string;
     getCanonicalFileName(fileName: string): string;
 

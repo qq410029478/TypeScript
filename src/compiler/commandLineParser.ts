@@ -1651,6 +1651,17 @@ const commandOptionsWithoutBuild: CommandLineOption[] = [
         type: "string",
         defaultValueDescription: undefined,
     },
+	// extra options
+        {
+            name: "emitReflection",
+            type: "boolean",
+            defaultValueDescription: undefined,
+        },
+        {
+            name: "reorderFiles",
+            type: "boolean",
+            defaultValueDescription: undefined,
+        },
 ];
 
 // Do not delete this without updating the website's tsconfig generation.

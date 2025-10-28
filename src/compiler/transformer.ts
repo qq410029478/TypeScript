@@ -71,6 +71,7 @@ import {
     transformModule,
     transformSystemModule,
     transformTypeScript,
+    transformTypeScriptPlus,
     VariableDeclaration,
 } from "./_namespaces/ts.js";
 import * as performance from "./_namespaces/ts.performance.js";
@@ -321,6 +322,11 @@ export function transformNodes<T extends Node>(resolver: EmitResolver | undefine
     performance.mark("beforeTransform");
 
     // Chain together and initialize each transformer.
+        //code by H3D_sugen: 没找到更好的地方，就在这里加吧。一定要做只加一次的处理
+		if(!(<any>transformers).includes(transformTypeScriptPlus)){
+			(<any>transformers).push(transformTypeScriptPlus)
+		}
+
     const transformersWithContext = transformers.map(t => t(context));
     const transformation = (node: T): T => {
         for (const transform of transformersWithContext) {

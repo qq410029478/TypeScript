@@ -2609,6 +2609,7 @@ export function createProgram(_rootNamesOrOptions: readonly string[] | CreatePro
             getSourceFile: program.getSourceFile,
             getSourceFileByPath: program.getSourceFileByPath,
             getSourceFiles: program.getSourceFiles,
+                getTypeChecker: program.getTypeChecker,
             isSourceFileFromExternalLibrary,
             getRedirectFromSourceFile,
             isSourceOfProjectReferenceRedirect,
